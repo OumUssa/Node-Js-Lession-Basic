@@ -1,0 +1,2 @@
+1-if you want which one lession please choose app.js is option 1
+2-first you need before run project you need command (npm init -y)
