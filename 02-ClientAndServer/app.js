@@ -16,7 +16,7 @@ const server=http.createServer((req,res)=>{
 
     switch (url) {
         case '/': path='./index.html';
-
+        
             break;
         case '/contact': path = './contact.html';
             break;
