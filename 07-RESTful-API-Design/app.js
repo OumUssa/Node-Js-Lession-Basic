@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors=require('cors')
+const cors = require("cors");
 
 app.use(cors());
 // convert json object to js javascript object
@@ -69,41 +69,37 @@ app.put("/products/:id", (req, res) => {
   });
 });
 app.delete("/products/delete/:id", (req, res) => {
-     let product = products.findIndex((p) => p.id === Number(req.params.id));
-     if(product===-1){
-      res.json({
-        result:false,
-        msg:'Not found !'
-      })
-     }
+  let product = products.findIndex((p) => p.id === Number(req.params.id));
+  if (product === -1) {
+    res.json({
+      result: false,
+      msg: "Not found !",
+    });
+  }
 
-     products.splice(product,1);
-  
-      res.json({
-        result: true,
-        msg: "Delete successfully ! ",
-      });
+  products.splice(product, 1);
+
+  res.json({
+    result: true,
+    msg: "Delete successfully ! ",
+  });
 });
 
 app.get("/product/:id", (req, res) => {
-
-  for(let i=0; i<products.length;i++){
-    
-    if(Number(req.params.id) === products[i].id){
+  for (let i = 0; i < products.length; i++) {
+    if (Number(req.params.id) === products[i].id) {
       res.json({
-        result:true,
-        msg:'get product successfully !',
-        data:products[i]
-      })
+        result: true,
+        msg: "get product successfully !",
+        data: products[i],
+      });
     }
-    
   }
 
   res.json({
-    result:false,
-    msg:'Not Found !'
-  })
-
+    result: false,
+    msg: "Not Found !",
+  });
 });
 app.listen(3000, () => {
   console.log("Server run successfully !! ");

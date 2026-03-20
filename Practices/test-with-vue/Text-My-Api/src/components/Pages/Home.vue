@@ -171,7 +171,7 @@ const confirmDelete = async () => {
     await store.deleteProduct(productToDelete.value);
     showDeleteModal.value = false;
     productToDelete.value = null;
-    alert("Product deleted successfully");
+
   } catch (err) {
     alert("Error deleting product: " + err.message);
   }
@@ -196,14 +196,12 @@ const handleFormClose = () => {
 const handleCreateSuccess = () => {
   showCreateModal.value = false;
   store.getAllproducts(); // Refresh product list
-  alert("Product created successfully!");
 };
 
 const handleEditSuccess = () => {
   showEditModal.value = false;
   selectedProduct.value = null;
   store.getAllproducts(); // Refresh product list
-  alert("Product updated successfully!");
 };
 
 const handleCreateSubmit = async () => {
