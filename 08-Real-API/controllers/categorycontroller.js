@@ -1,16 +1,15 @@
 const pool = require('../config/db')
+const categoryService = require('../services/categoryService')
 
 const create =async (req, res) => {
   try {
-    let sql = "INSERT INTO category(category_name) VALUE (?)";
-    let body = req.body;
-    let data = [body.category_name];
-    let [result] = await pool.query(sql, data);
+    const result =await categoryService.create(req.body)
 
     res.json({
       result: true,
       msg: "Create Category Successfully ",
     });
+
   } catch (e) {
     res.status(500).json({
       result: false,
@@ -20,8 +19,8 @@ const create =async (req, res) => {
 }
 const getAll=async (req, res) => {
   try {
-    let sql = "SELECT * FROM category";
-    let [result] = await pool.query(sql);
+
+    const result = await categoryService.getAll();
 
     res.json({
       result: true,
@@ -37,28 +36,12 @@ const getAll=async (req, res) => {
 }
 const update = async (req, res) => {
   try {
-    let [category] = await pool.query(
-      "SELECT * FROM category WHERE id=?",
-      req.params.id,
-    );
-    if (category.length == 0) {
-      return res.status(500).json({
-        result: false,
-        msg: "Category not found !!",
-      });
-    }
-
-    let sql = "UPDATE category SET category_name=? WHERE id =?";
-    let data = [req.body.category_name, req.params.id];
-    let [result] = await pool.query(sql, data);
-    let [row] = await pool.query("SELECT * FROM category WHERE id=?", [
-      req.params.id,
-    ]);
+    const result =await categoryService.update(req.params.id,req.body)
 
     res.json({
       result: true,
       msg: " Category Update Successfully ",
-      data: row,
+      data: result,
     });
   } catch (e) {
     res.status(500).json({
@@ -68,23 +51,10 @@ const update = async (req, res) => {
   }
 }
 const deletes=async (req, res) => {
+
+  const result = await categoryService.deleted(req.params.id,res.status(401))
   try {
-    let [category] = await pool.query(
-      "SELECT * FROM category WHERE id=?",
-      req.params.id,
-    );
-    if (category.length == 0) {
-      return res.status(500).json({
-        result: false,
-        msg: "Category not found !!",
-      });
-    }
-
-    let sql = "DELETE FROM  category  WHERE id =?";
-    let data = [req.params.id];
-    let [result] = await pool.query(sql, data);
-
-    res.json({
+    res.status(200).json({
       result: true,
       msg: " Category DELETE Successfully ",
     });
