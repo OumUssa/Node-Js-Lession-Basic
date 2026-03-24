@@ -3,7 +3,7 @@ const categoryService = require('../services/categoryService')
 
 const create =async (req, res) => {
   try {
-    const result =await categoryService.create(req.body)
+    const result =await categoryService.create( )
 
     res.json({
       result: true,
@@ -17,7 +17,7 @@ const create =async (req, res) => {
     });
   }
 }
-const getAll=async (req, res) => {
+const getAll= async (req, res) => {
   try {
 
     const result = await categoryService.getAll();
@@ -50,6 +50,7 @@ const update = async (req, res) => {
     });
   }
 }
+
 const deletes=async (req, res) => {
 
   const result = await categoryService.deleted(req.params.id,res.status(401))
