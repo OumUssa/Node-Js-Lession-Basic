@@ -37,8 +37,9 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    
+
     const result = await productsService.update(req.params.id, req.body)
+    
 
     res.json({
       result: true,
@@ -48,7 +49,7 @@ const update = async (req, res) => {
   } catch (e) {
     res.status(500).json({
       result: false,
-      msg: "Update internal Server ! ",
+      msg: e.message,
     });
   }
 };

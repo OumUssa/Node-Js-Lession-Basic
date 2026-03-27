@@ -3,18 +3,19 @@ const categoryService = require('../services/categoryService')
 
 const create =async (req, res) => {
   try {
-    const result =await categoryService.create( )
+    const result =await categoryService.create(req.body)
 
     res.json({
       result: true,
       msg: "Create Category Successfully ",
-    });
+      data:result
+    })
 
   } catch (e) {
     res.status(500).json({
       result: false,
       msg: "create fail !!",
-    });
+    });   
   }
 }
 const getAll= async (req, res) => {
@@ -34,6 +35,7 @@ const getAll= async (req, res) => {
     });
   }
 }
+
 const update = async (req, res) => {
   try {
     const result =await categoryService.update(req.params.id,req.body)
@@ -46,7 +48,7 @@ const update = async (req, res) => {
   } catch (e) {
     res.status(500).json({
       result: false,
-      msg: "Update fail category !!",
+      msg: e.message,
     });
   }
 }
