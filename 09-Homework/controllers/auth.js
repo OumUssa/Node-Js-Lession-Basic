@@ -51,10 +51,19 @@ const users=async (req,res)=>{
   }
 }
 const getme=async(req,res)=>{
+  
   try{
-
+    let row = await authService.getMe(res.user.id)
+    res.json({
+      result: true,
+      msg: "get  Account Successfully",
+      data: row,
+    });
   }catch(e){
-
+     res.status(401).json({
+      result: false,
+      msg: e.message,
+    });
   }
 }
 module.exports = {

@@ -38,28 +38,26 @@ const login = async function (body) {
     jwtConfig.secret,
     {expiresIn:jwtConfig.expiresIn}
   );
-  
-  return {
-    id:user.id,
-    name: user.name,
-    email:user.email,
-    phone:user.phone,
-    address:user.address,
-    role:user.role,
-    is_active:user.is_active,
-    created_at:user.created_at,
-    updated_at:user.updated_at,
-    token:token
-  };
+
+  await modelAuth.addToken(token,user.id)
+  let row = await modelAuth.getbyId(user.id)
+  return row;
 };
 
-const users = async function () {
+const users = async function name() {
   let rows = await modelAuth.users();
   return rows;
 };
+
+const getMe= async function name(id) {
+    let row =await modelAuth.getbyId(id)
+
+    return row;
+}
 
 module.exports = {
   Register,
   login,
   users,
+  getMe
 };

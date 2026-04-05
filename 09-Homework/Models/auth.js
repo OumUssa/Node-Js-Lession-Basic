@@ -1,7 +1,7 @@
 const pool = require("../configs/DB");
 
 const getbyId = async function name(id) {
-  const sql = await "SELECT * FROM users WHERE id = ?";
+  const sql = await "SELECT id,name,email,phone,address,role,is_active,email_verified_at,created_at,updated_at ,token FROM users WHERE id = ?";
   const [result] = await pool.query(sql, [id]);
 
   return result;
@@ -40,9 +40,14 @@ const users = async function name() {
   return rows;
 };
 
+const addToken= async function name(token,id) {
+     await pool.query('update users set token = ? Where id  = ?',[token,id]) 
+}
+
 module.exports = {
   Register,
   getbyId,
   login,
   users,
+  addToken
 };
