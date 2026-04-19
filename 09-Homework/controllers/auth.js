@@ -66,9 +66,23 @@ const getme=async(req,res)=>{
     });
   }
 }
+
+const logout = async(req,res)=>{
+  try{
+    let row = await authService.logout(getToken) 
+    
+  }
+  catch(e){
+     res.status(401).json({
+      result: false,
+      msg: e.message,
+    });
+  }
+}
 module.exports = {
   create,
   login,
   users,
-  getme
+  getme,
+  logout
 };

@@ -44,10 +44,23 @@ const addToken= async function name(token,id) {
      await pool.query('update users set token = ? Where id  = ?',[token,id]) 
 }
 
+const findbyToken= async function name(token) {
+  let sql= "SELECT token from users Where token = ?"
+  let [row] = await pool.query(sql,[token]); 
+  console.log(row);
+  
+  return row;
+}
+const logout = async function name() {
+  let sql = "update users set token=null where token = ?";
+  let result = await pool.query(sql,[])
+}
 module.exports = {
   Register,
   getbyId,
   login,
   users,
-  addToken
+  addToken,
+  findbyToken,
+  logout
 };

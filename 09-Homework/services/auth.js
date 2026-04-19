@@ -55,9 +55,16 @@ const getMe= async function name(id) {
     return row;
 }
 
+const logout = async function name(token) {
+    let row = await modelAuth.getbyId(token)
+
+    return row;
+}
+
 module.exports = {
   Register,
   login,
   users,
-  getMe
+  getMe,
+  logout
 };
