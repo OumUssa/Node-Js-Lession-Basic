@@ -33,46 +33,65 @@ const login = async (req, res) => {
   }
 };
 
-const users=async (req,res)=>{
-  try{
+const users = async (req, res) => {
+  try {
     let row = await authService.users();
-    
+
     res.json({
       result: true,
       msg: "get  Account Successfully",
       data: row,
     });
-  }
-  catch(e){
+  } catch (e) {
     res.status(401).json({
       result: false,
       msg: e.message,
     });
   }
-}
-const getme=async(req,res)=>{
-  
-  try{
-    let row = await authService.getMe(res.user.id)
+};
+const getme = async (req, res) => {
+  try {
+    let row = await authService.getMe(res.user.id);
     res.json({
       result: true,
       msg: "get  Account Successfully",
       data: row,
     });
-  }catch(e){
-     res.status(401).json({
+  } catch (e) {
+    res.status(401).json({
       result: false,
       msg: e.message,
     });
   }
-}
+};
 
-const logout = async(req,res)=>{
-  try{
-    let row = await authService.logout(getToken) 
-    
+const logout = async (req, res) => {
+  try {
+    let row = await authService.logout(getToken);
+  } catch (e) {
+    res.status(401).json({
+      result: false,
+      msg: e.message,
+    });
   }
-  catch(e){
+};
+const verifyEmail = async (req, res) => {
+  try {
+    await authService.verifyEmail(req.query.token);
+  } catch (e) {
+    res.status(401).json({
+      result: false,
+      msg: e.message,
+    });
+  }
+};
+
+const resendVericationEmail = async (req,res)=>{
+   try {
+      let  result =await authService.resendVerifyEmail(req.body.email)
+      
+      
+  } catch (e) {
      res.status(401).json({
       result: false,
       msg: e.message,
@@ -84,5 +103,7 @@ module.exports = {
   login,
   users,
   getme,
-  logout
+  logout,
+  verifyEmail,
+  resendVericationEmail
 };

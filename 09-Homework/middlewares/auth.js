@@ -18,13 +18,14 @@ const islogin = async(req, res, next) => {
     if(parts.length !==2 || parts[0]!=='Bearer'){
         return res.json({
         result:false,
-        msg:"inavlid token!! l"
+        msg:"inavlid token!!"
       })
     }
     let token = parts[1];
     const decode = jwt.verify(token,jwtConfig.secret);
     
     let userInfo = await user.findbyToken(token);
+    
     if(userInfo.length == 0){
       throw new Error('Invalid or Exp token !!')
     }
